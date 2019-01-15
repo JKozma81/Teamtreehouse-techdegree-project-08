@@ -1,6 +1,8 @@
 doctype html
 head
-  title Books
+  title #{menu.title}
   link(href='/stylesheets/style.css', rel='stylesheet')
 body
-  block content
+  main
+    h1 #{menu.title}
+    block content

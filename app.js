@@ -27,14 +27,18 @@ app.set('view engine', 'pug');
 // Importing the middlewares for the appropriate routes
 //const about = require('./routes/about');
 const home = require('./routes/home');
+const newBook = require('./routes/newBook');
+const detail = require('./routes/detail');
 // Importing Error page controller
 //const error = require('./controllers/errorPage')
 
 // Setting up the routes
 // app.get('/projects/:projectId', projets);
 // app.get('/about', about);
-app.get('/home', home);
-app.get('/', (req, res, next) => res.redirect('/home'));
+app.get('/books/new', newBook);
+app.get('/books/:bookId', detail);
+app.get('/books', home);
+app.get('/', (req, res, next) => res.redirect('/books'));
 
 // Helper middleware to create error
 // app.use(error.createError);

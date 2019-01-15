@@ -1,9 +1,8 @@
 extends index.pug
 
 block content
-  h1 Books
   p
-    a.button(href='new_book.html') Create New Book
+    a.button(href='/books/new') Create New Book
   table
     thead
       tr
@@ -12,3 +11,12 @@ block content
         th Genre
         th Year
     tbody
+      each book in books
+        tr
+          td
+            a(href=`/books/${book.id}`) #{book.title}
+          td #{book.author}
+          td #{book.genre}
+          td #{book.year}
+  script(src="/js/controller.js")
+      
