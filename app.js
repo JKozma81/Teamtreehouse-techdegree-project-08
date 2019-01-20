@@ -5,6 +5,10 @@ const bodyParser = require('body-parser');
 // Importing path modul
 const path = require('path');
 
+// const sequelize = require('./util/databaseConnection');
+
+const db = require('./models');
+
 // Abs path
 // const path = require('path');
 // path.join(__dirname, 'views');
@@ -17,6 +21,7 @@ const app = express();
 
 // Initializing body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Setting up the public folder for static files and linking it to the static route
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,7 +38,6 @@ app.set('view engine', 'pug');
 const home = require('./routes/redirect');
 const books = require('./routes/books');
 
-
 // Importing Error page controller
 //const error = require('./controllers/errorPage')
 
@@ -49,15 +53,22 @@ app.use(books);
 // app.get('/books', home);
 // app.get('/', (req, res, next) => res.redirect('/books'));
 
-
-
 // Helper middleware to create error
 // app.use(error.createError);
 
 // Error handling middleware
 // app.use(error.getError);
 
-// Starting the server
-app.listen(3000, () => {
-	console.log('Server is started at port 3000 and listening...');
+db.Book.sync().then((result) => {
+	// Starting the server
+	app.listen(3000, () => {
+		console.log('Server is started at port 3000 and listening...');
+	});
 });
+
+// sequelize.sync().then((result) => {
+// 	// Starting the server
+// 	app.listen(3000, () => {
+// 		console.log('Server is started at port 3000 and listening...');
+// 	});
+// });
